@@ -1,8 +1,12 @@
 // ==UserScript==
 // @name         AnkiBridge for Weblio
-// @namespace    ankibridge-for-weblio
+// @namespace    https://github.com/Fuku856/AnkiBridge-for-Weblio
 // @version      1.0.0
-// @description  Weblio学習の単語トレーニング結果から英単語と日本語訳を抽出し、AnkiConnect経由でAnkiに登録します。
+// @description  Weblio Studyの単語トレーニング結果から英単語と日本語訳を抽出し、AnkiConnect経由でAnkiに登録します。
+// @author       Fuku856
+// @license      MIT
+// @homepageURL  https://github.com/Fuku856/AnkiBridge-for-Weblio
+// @supportURL   https://github.com/Fuku856/AnkiBridge-for-Weblio/issues
 // @match        https://weblio-study.weblio.jp/*
 // @grant        GM_xmlhttpRequest
 // @grant        GM_getValue
