@@ -262,6 +262,7 @@
     .abw-btn.abw-sub { background: #3a3f46; }
     .abw-btn.abw-sub:hover { background: #4a5058; }
     .abw-panel .abw-btn { width: 100%; }
+    .abw-panel .abw-btn[hidden] { display: none; }
     .abw-toast-wrap {
       position: fixed; top: 16px; right: 16px; z-index: 2147483001;
       display: flex; flex-direction: column; gap: 8px; pointer-events: none;
@@ -361,6 +362,8 @@
       panel = { root, info, status, button };
     }
     renderPanelInfo();
+    // 自動登録モードでは登録ボタンを出さない（失敗時のみ再試行用に表示する）
+    panel.button.hidden = settings.mode === 'auto';
     setPanelStatus(settings.mode === 'auto' ? '' : '「Ankiに登録」を押すと登録します');
   }
 
@@ -466,6 +469,7 @@
         ankiUrl: f.ankiUrl.value.trim() || DEFAULTS.ankiUrl,
       });
       renderPanelInfo();
+      if (panel) panel.button.hidden = settings.mode === 'auto';
       toast('設定を保存しました');
       close();
     };
@@ -535,6 +539,7 @@
       const text = e instanceof AnkiError ? e.message : `登録に失敗しました: ${e.message}`;
       setPanelStatus(text, 'err');
       toast(text, true);
+      if (panel) panel.button.hidden = false;
     } finally {
       busy = false;
       if (panel) panel.button.disabled = false;
@@ -562,7 +567,7 @@
     current = { sig, entries };
     showPanel();
     if (settings.mode === 'auto') {
-      if (isProcessed(sig)) setPanelStatus('この結果は登録済みです（再登録はボタンから）');
+      if (isProcessed(sig)) setPanelStatus('この結果は登録済みです');
       else runRegister({ auto: true });
     }
   }
